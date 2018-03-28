@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="AvalondockPlus.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+             xmlns:local="clr-namespace:AvalondockPlus"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Hello">
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Edit"/>
+            <MenuItem Header="Window"/>
+        </Menu>
+        <!--<TextBlock Name="Value" DockPanel.Dock="Bottom"/>-->
+        <ad:DockingManager Name="dockManager" DockPanel.Dock="Bottom">
+            <ad:DockingManager.Theme>
+                <ad:GenericTheme/>
+            </ad:DockingManager.Theme>
+
+            <ad:LayoutRoot x:Name="root">
+                <ad:LayoutPanel Orientation="Vertical">
+                    <ad:LayoutDocumentPane>
+                        <ad:LayoutDocument Title="MyDocument">
+                            <StackPanel>
+                                <TextBlock Text="Hello,world"/>
+                                <TextBlock Name="Value"/>
+                            </StackPanel>
+                        </ad:LayoutDocument>
+                    </ad:LayoutDocumentPane>
+                    <ad:LayoutAnchorablePane>
+                        <ad:LayoutAnchorable Title="OutputWindow">
+                            <DockPanel Width="120" Height="140">
+                                <TextBlock Text="ログ出力" DockPanel.Dock="Top"/>
+                            </DockPanel>
+                        </ad:LayoutAnchorable>
+                    </ad:LayoutAnchorablePane>
+                </ad:LayoutPanel>
+            </ad:LayoutRoot>
+        </ad:DockingManager>
+    </DockPanel>
+</UserControl>

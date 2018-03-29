@@ -1,23 +1,49 @@
 ﻿<UserControl x:Class="AvalondockPlus.MainView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
              xmlns:local="clr-namespace:AvalondockPlus"
+             xmlns:cm="http://www.caliburnproject.org"
+             cm:Message.Attach="[Event Loaded] = [Action Load($view)]"
              mc:Ignorable="d" 
-             
              d:DesignHeight="450" d:DesignWidth="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cm:ActionMessage MethodName="Load" >
+                <cm:Parameter Value="{Binding ElementName=dockManager}" />
+            </cm:ActionMessage>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded" cm:Action.TargetWithoutContext="{Binding ElementName=dockManager}">
+            <cm:ActionMessage MethodName="Unload">
+                <cm:Parameter Value="{Binding ElementName=dockManager}"/>
+            </cm:ActionMessage>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Hello">
                 <MenuItem Header="Exit"/>
             </MenuItem>
-            <MenuItem Header="Edit"/>
-            <MenuItem Header="Window"/>
+            <MenuItem Header="Edit">
+            </MenuItem>
+            <MenuItem Header="Window" cm:Message.Attach="hoge(TextParam)">
+                <!--<i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cm:ActionMessage MethodName="hoge">
+                            <cm:Parameter Value="{Binding Text,ElementName=TextParam}"/>
+                        </cm:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>-->
+            </MenuItem>
         </Menu>
-        <!--<TextBlock Name="Value" DockPanel.Dock="Bottom"/>-->
-        <ad:DockingManager Name="dockManager" DockPanel.Dock="Bottom">
+        <TextBox Name="TextParam" Width="120" DockPanel.Dock="Bottom" Text="Sample Text"/>
+        <ad:DockingManager DockPanel.Dock="Bottom" Name="dockManager"
+                           
+                           >
             <ad:DockingManager.Theme>
                 <ad:GenericTheme/>
             </ad:DockingManager.Theme>
@@ -28,7 +54,7 @@
                         <ad:LayoutDocument Title="MyDocument">
                             <StackPanel>
                                 <TextBlock Text="Hello,world"/>
-                                <TextBlock Name="Value"/>
+                                <!--<TextBlock Name="Value" Text="{Binding Value}"/>-->
                             </StackPanel>
                         </ad:LayoutDocument>
                     </ad:LayoutDocumentPane>

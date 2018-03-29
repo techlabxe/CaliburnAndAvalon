@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,19 @@ namespace AvalondockPlus
         public MainView()
         {
             InitializeComponent();
+
+            this.Loaded += MainView_Loaded;
+            this.Unloaded += MainView_Unloaded;
+        }
+
+        private void MainView_Loaded(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("MainViewLoad.");
+        }
+
+        private void MainView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("MainViewUnload.");
         }
     }
 }
